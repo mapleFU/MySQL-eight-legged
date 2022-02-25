@@ -39,7 +39,48 @@ Page 存储感觉做的非常细，相对别的存储引擎，对 update 之类�
 
 个人还是关注 `Null` 特性，和 OLAP 使用上的改进。
 
+## Adaptive Hash Index
+
+看来是 Page 有关的，我觉得设计的很巧妙。但是不知道占用空间之类的怎么说
+
+1. http://mysql.taobao.org/monthly/2015/09/01/
+2. https://dev.mysql.com/doc/refman/8.0/en/innodb-adaptive-hash.html
+
+感觉是 mem + page 的一个系统，我觉得非常巧妙。
+
 ## btr
+
+关于 cluster index 之类的我觉得没啥好讲的，HeapTable 之类的可以对比，但是不能乱碰瓷。
+
+### Page
+
+1. Page 内的逻辑，包括一些插入 + 方向优化：http://mysql.taobao.org/monthly/2018/04/03/
+2. （比较简单）Merge 和 Split 的一些要点：https://www.percona.com/blog/2017/04/10/innodb-page-merging-and-page-splitting/
+3. https://stackoverflow.com/questions/48364549/how-does-the-leaf-node-split-in-the-physical-space-in-innodb
+
+感觉很细的一点是，根据插入方向确定 split 的 pattern，和页内格式。我反正写不了这么复杂的东西。
+
+### DDL
+
+Online DDL 对业务来说还是很重要的。
+
+1. (一些演进) Online DDL 演进： http://mysql.taobao.org/monthly/2021/03/06/
+2. (这个功能好像是腾讯/阿里开发的，看到 Percona 还是啥写过感谢) 快速加列：http://mysql.taobao.org/monthly/2020/03/01/
+
+感觉没找到很好的材料，需要区分 online or not, in-place or not, rebuild or not. 然后 gh-ost/pt-online-schema-change 之类的又有一些 DDL:
+
+1. http://mysql.taobao.org/monthly/2018/05/02/
+
+反正这块还挺复杂的，突然发现 TiDB 那套模型加索引还挺方便的 orz。
+
+## 统计信息
+
+1. http://mysql.taobao.org/monthly/2020/12/05/
+2. http://mysql.taobao.org/monthly/2020/03/08/
+
+
+
+
 
 
 ## Record
@@ -51,6 +92,19 @@ Page 存储感觉做的非常细，相对别的存储引擎，对 update 之类�
 ### 编码
 
 Varchar 之类的处理。
+
+
+
+## 锁
+
+MySQL 锁有很多坑，介绍最好的材料应该是何登成写的：
+
+1. https://github.com/hedengcheng/tech/blob/master/database/MySQL/MySQL%20%E5%8A%A0%E9%94%81%E5%A4%84%E7%90%86%E5%88%86%E6%9E%90.pdf
+2. https://github.com/wiminq/tech_note/blob/master/MySQL/%E4%BD%95%E7%99%BB%E6%88%90PPT/InnoDB%20Transaction%20Lock%20and%20MVCC%20%252854%E9%A1%B5%2529.pdf
+
+注意一些 insertion 的意向锁 之类的。
+
+
 
 ## Change Buffer/Insert Buffer
 
