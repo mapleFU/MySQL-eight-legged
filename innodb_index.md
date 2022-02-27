@@ -93,7 +93,24 @@ Online DDL 对业务来说还是很重要的。
 
 Varchar 之类的处理。
 
+## Latch
 
+### Latch 的物理实现(其实很 naive)
+
+这个 SpinLock 实现的时候竟然会 random 一下，详细如下
+
+* https://dev.mysql.com/doc/refman/8.0/en/innodb-performance-spin_lock_polling.html
+
+然后它 Latch ：http://mysql.taobao.org/monthly/2020/03/07/  和 http://mysql.taobao.org/monthly/2021/02/08/
+
+### Latch Protocol (挺难的我觉得...)
+
+本身 Btr 有一些 Latching Protocol, 这个是个很大的话题
+
+1. (强烈推荐) http://mysql.taobao.org/monthly/2022/01/01/
+2. (强烈推荐) https://zhuanlan.zhihu.com/p/151397269
+
+这个时候我不得不推荐一下 B-link-Tree 的解析了：https://zhuanlan.zhihu.com/p/165149237 
 
 ## 锁
 
@@ -102,9 +119,53 @@ MySQL 锁有很多坑，介绍最好的材料应该是何登成写的：
 1. https://github.com/hedengcheng/tech/blob/master/database/MySQL/MySQL%20%E5%8A%A0%E9%94%81%E5%A4%84%E7%90%86%E5%88%86%E6%9E%90.pdf
 2. https://github.com/wiminq/tech_note/blob/master/MySQL/%E4%BD%95%E7%99%BB%E6%88%90PPT/InnoDB%20Transaction%20Lock%20and%20MVCC%20%252854%E9%A1%B5%2529.pdf
 
-注意一些 insertion 的意向锁 之类的。
+注意
 
+1. 一些 insertion 的意向锁 之类的。
+2. 不支持锁 Escalation (不同于 upgrade)，虽然有 intention lock，但是那个可以理解成表锁之类的
+3. 实现类似 wound-wait 的 2pl，lock 和 page 挂钩
 
+这里读还区分了 consistent nonlocking read 和 locking read，其实还有个奇怪的 semi-consistent read
+
+还有个 auto_increment: https://dev.mysql.com/doc/refman/8.0/en/innodb-auto-increment-handling.html
+
+关于锁，还有一些死锁检测的内容：http://mysql.taobao.org/monthly/2021/05/02/
+
+隔离级别和锁还是看何登成的材料吧。
+
+## 事务子系统
+
+* (强烈推荐) https://zhuanlan.zhihu.com/p/365415843 InnoDB事务 - 从原理到实现（zty 老板写的）
+* http://mysql.taobao.org/monthly/2015/12/01/
+
+Redo/Undo 强烈推荐 Catkang 的 notes:
+
+1. https://catkang.github.io/2020/02/27/mysql-redo.html
+2. https://catkang.github.io/2021/10/30/mysql-undo.html
+
+关注：
+
+1. undo log 的实现 pattern
+2. Physical/Logical 的物理逻辑日志，和 column level 的操作
+3. **Redo Log 的 wait-free 写模型**
+4. MVCC 怎么和事务/索引/Undo Log 联动的
+5. UNDO LOG 的 GC，和事务信息系统
+
+关于 Binlog, 这玩意还挺重要的，这里有：
+
+1. Binlog 本身内容
+2. Binlog 和 Redo/Undo/XA 的联动
+3. Group Commit
+
+推荐的材料是：
+
+1. \<redo、undo、buffer pool、binlog，谁先谁后， 有点儿乱\>
+2. https://zhuanlan.zhihu.com/p/372300181
+
+## 备份
+
+1. http://mysql.taobao.org/monthly/2016/03/07/
+2. http://mysql.taobao.org/monthly/2015/08/09/ 和 http://mysql.taobao.org/monthly/2015/09/07/
 
 ## Change Buffer/Insert Buffer
 
