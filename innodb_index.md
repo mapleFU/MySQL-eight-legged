@@ -162,6 +162,12 @@ Redo/Undo 强烈推荐 Catkang 的 notes:
 1. \<redo、undo、buffer pool、binlog，谁先谁后， 有点儿乱\>
 2. https://zhuanlan.zhihu.com/p/372300181
 
+### XA 
+
+XA 概念和锁强相关，本身可以先看看上面 Binlog 有关的。这里推荐 PolarDB-X 关于 XA 的文章，介绍了 XA 及其优化。
+
+* https://zhuanlan.zhihu.com/p/355413022
+
 ## 备份
 
 1. http://mysql.taobao.org/monthly/2016/03/07/
@@ -172,8 +178,6 @@ Redo/Undo 强烈推荐 Catkang 的 notes:
 链接：
 1. http://mysql.taobao.org/monthly/2015/07/01/
 2. https://dev.mysql.com/doc/refman/8.0/en/innodb-change-buffer.html
-
-
 
 
 
