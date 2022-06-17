@@ -60,6 +60,12 @@ Page 存储感觉做的非常细，相对别的存储引擎，对 update 之类�
 
 感觉很细的一点是，根据插入方向确定 split 的 pattern，和页内格式。我反正写不了这么复杂的东西。
 
+Split 大概逻辑在 `btr_page_split_and_insert`, 下面两篇文章链路介绍的比较好：
+
+1. InnoDB——Btree与MTR的牵扯: http://liuyangming.tech/05-2019/InnoDB-Mtr.html
+
+2. MySQL 8.0 redo log实现分析: https://zhuanlan.zhihu.com/p/440476383
+
 ### DDL
 
 Online DDL 对业务来说还是很重要的。
@@ -77,10 +83,6 @@ Online DDL 对业务来说还是很重要的。
 
 1. http://mysql.taobao.org/monthly/2020/12/05/
 2. http://mysql.taobao.org/monthly/2020/03/08/
-
-
-
-
 
 
 ## Record
