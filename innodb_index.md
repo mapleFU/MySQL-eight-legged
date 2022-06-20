@@ -1,5 +1,7 @@
 
 
+代码目录：https://blog.csdn.net/qq_16668303/article/details/111765310 （要不然鬼看得懂）
+
 ## Innodb_buffer_pool
 
 链接：
@@ -26,8 +28,9 @@ NVMe 最新协议似乎有原子写有关的部分。主线程有一些行为可
 
 ## 存储(关注 Tablespace -> Page 的链路，不关注逻辑)
 
-1. (强烈推荐) 《MySQL是怎样运行的：从根儿上理解 MySQL》 chap8-9
-2. http://mysql.taobao.org/monthly/2019/10/01/
+1. (强烈推荐) 官方博客：https://dev.mysql.com/blog-archive/innodb-tablespace-space-management/ ，有几张绝世好图
+2. (强烈推荐) 《MySQL是怎样运行的：从根儿上理解 MySQL》 chap8-9
+3. http://mysql.taobao.org/monthly/2019/10/01/
 
 基本上是为了让分配的物理空间连续/不连续导致的
 
@@ -52,9 +55,14 @@ Page 存储感觉做的非常细，相对别的存储引擎，对 update 之类�
 
 关于 cluster index 之类的我觉得没啥好讲的，HeapTable 之类的可以对比，但是不能乱碰瓷。
 
+下面两篇虽然是实现，但是是**强烈推荐**的内容，因为写的太牛逼了：
+
+* InnoDB：B-tree index（1） - Skywalker的文章 - 知乎 https://zhuanlan.zhihu.com/p/164705538
+* InnoDB：B-tree index（2） - Skywalker的文章 - 知乎 https://zhuanlan.zhihu.com/p/164728032
+
 ### Page
 
-1. Page 内的逻辑，包括一些插入 + 方向优化：http://mysql.taobao.org/monthly/2018/04/03/
+1. 索引Page 内的逻辑，包括一些插入 + 方向优化：http://mysql.taobao.org/monthly/2018/04/03/
 2. （比较简单）Merge 和 Split 的一些要点：https://www.percona.com/blog/2017/04/10/innodb-page-merging-and-page-splitting/
 3. https://stackoverflow.com/questions/48364549/how-does-the-leaf-node-split-in-the-physical-space-in-innodb
 
@@ -63,8 +71,11 @@ Page 存储感觉做的非常细，相对别的存储引擎，对 update 之类�
 Split 大概逻辑在 `btr_page_split_and_insert`, 下面两篇文章链路介绍的比较好：
 
 1. InnoDB——Btree与MTR的牵扯: http://liuyangming.tech/05-2019/InnoDB-Mtr.html
-
 2. MySQL 8.0 redo log实现分析: https://zhuanlan.zhihu.com/p/440476383
+
+下降的实现在 `btr_cur_search_to_nth_level`，插入之类的都会走这里。
+
+1. MySQL · 源码分析 · btr_cur_search_to_nth_level 函数分析: http://mysql.taobao.org/monthly/2021/07/02/
 
 ### DDL
 
@@ -110,7 +121,10 @@ Varchar 之类的处理。
 本身 Btr 有一些 Latching Protocol, 这个是个很大的话题
 
 1. (强烈推荐) http://mysql.taobao.org/monthly/2022/01/01/
+
 2. (强烈推荐) https://zhuanlan.zhihu.com/p/151397269
+
+3. MySQL · 引擎特性 · InnoDB index lock前世今生 http://mysql.taobao.org/monthly/2015/07/05/
 
 这个时候我不得不推荐一下 B-link-Tree 的解析了：https://zhuanlan.zhihu.com/p/165149237 
 
@@ -138,7 +152,10 @@ MySQL 锁有很多坑，介绍最好的材料应该是何登成写的：
 ## 事务子系统
 
 * (强烈推荐) https://zhuanlan.zhihu.com/p/365415843 InnoDB事务 - 从原理到实现（zty 老板写的）
-* http://mysql.taobao.org/monthly/2015/12/01/
+
+* MySQL · 引擎特性 · InnoDB 事务子系统介绍: http://mysql.taobao.org/monthly/2015/12/01/
+
+* MySQL · 引擎特性 · InnoDB mini transation: http://mysql.taobao.org/monthly/2017/10/03/
 
 Redo/Undo 强烈推荐 Catkang 的 notes:
 
@@ -180,7 +197,4 @@ XA 概念和锁强相关，本身可以先看看上面 Binlog 有关的。这里
 链接：
 1. http://mysql.taobao.org/monthly/2015/07/01/
 2. https://dev.mysql.com/doc/refman/8.0/en/innodb-change-buffer.html
-
-
-
-secondary / unique
+3. 官方博客：https://dev.mysql.com/blog-archive/the-innodb-change-buffer/
