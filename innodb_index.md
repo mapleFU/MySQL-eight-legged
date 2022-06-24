@@ -1,4 +1,10 @@
+下面内容的来源：
 
+* 官方的博客: MariaDB / MySQL \(https://dev.mysql.com/blog-archive/\)
+* 数据库月报: https://github.com/tangwz/db-monthly
+* PolarDB-X 团队知乎: https://www.zhihu.com/org/polardb-x
+* skywalker 的文章: https://www.zhihu.com/people/jiang-feng-73-84/posts
+* http://liuyangming.tech/
 
 代码目录：https://blog.csdn.net/qq_16668303/article/details/111765310 （要不然鬼看得懂）
 
@@ -65,6 +71,7 @@ Page 存储感觉做的非常细，相对别的存储引擎，对 update 之类�
 1. 索引Page 内的逻辑，包括一些插入 + 方向优化：http://mysql.taobao.org/monthly/2018/04/03/
 2. （比较简单）Merge 和 Split 的一些要点：https://www.percona.com/blog/2017/04/10/innodb-page-merging-and-page-splitting/
 3. https://stackoverflow.com/questions/48364549/how-does-the-leaf-node-split-in-the-physical-space-in-innodb
+4. 压缩页：http://mysql.taobao.org/monthly/2015/08/01/
 
 感觉很细的一点是，根据插入方向确定 split 的 pattern，和页内格式。我反正写不了这么复杂的东西。
 
@@ -152,9 +159,8 @@ MySQL 锁有很多坑，介绍最好的材料应该是何登成写的：
 ## 事务子系统
 
 * (强烈推荐) https://zhuanlan.zhihu.com/p/365415843 InnoDB事务 - 从原理到实现（zty 老板写的）
-
+* (强烈推荐) MairaDB Slide: https://mariadb.org/wp-content/uploads/2018/02/Deep-Dive_-InnoDB-Transactions-and-Write-Paths.pdf
 * MySQL · 引擎特性 · InnoDB 事务子系统介绍: http://mysql.taobao.org/monthly/2015/12/01/
-
 * MySQL · 引擎特性 · InnoDB mini transation: http://mysql.taobao.org/monthly/2017/10/03/
 
 Redo/Undo 强烈推荐 Catkang 的 notes:
@@ -198,3 +204,4 @@ XA 概念和锁强相关，本身可以先看看上面 Binlog 有关的。这里
 1. http://mysql.taobao.org/monthly/2015/07/01/
 2. https://dev.mysql.com/doc/refman/8.0/en/innodb-change-buffer.html
 3. 官方博客：https://dev.mysql.com/blog-archive/the-innodb-change-buffer/
+4. InnoDB: Change Buffer https://zhuanlan.zhihu.com/p/346500273
