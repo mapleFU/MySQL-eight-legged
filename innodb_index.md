@@ -13,10 +13,11 @@
 链接：
 
 1. **(强烈推荐)** InnoDB Buffer Pool: http://mysql.taobao.org/monthly/2017/05/01/
-2. BufferPool 浅析: http://mysql.taobao.org/monthly/2020/02/02/ 
+2. BufferPool 浅析: http://mysql.taobao.org/monthly/2020/02/02/
 3. InnoDB Buffer Pool 特性漫谈：http://mysql.taobao.org/monthly/2015/02/01/
 
 一些细节:
+
 1. Chunk 和内存申请
 2. Zip 的使用 和 Buddy System
 3. 和 Redo Log 空间/IO 能力/Dirty Page 的联动
@@ -24,11 +25,12 @@
 5. DoubleWrite
 6. 预加载
 
-顺便说一句，Double Write 可以联动 PG 的 full page write 看：http://mysql.taobao.org/monthly/2015/11/05/ 
+顺便说一句，Double Write 可以联动 PG 的 full page write 看：http://mysql.taobao.org/monthly/2015/11/05/
 
 NVMe 最新协议似乎有原子写有关的部分。主线程有一些行为可以联动一下。
 
 关注：
+
 1. 限制
 2. key 和 value 的 pattern.
 
@@ -102,7 +104,6 @@ Online DDL 对业务来说还是很重要的。
 1. http://mysql.taobao.org/monthly/2020/12/05/
 2. http://mysql.taobao.org/monthly/2020/03/08/
 
-
 ## Record
 
 1. (强烈推荐) 《MySQL是怎样运行的：从根儿上理解 MySQL》
@@ -128,12 +129,10 @@ Varchar 之类的处理。
 本身 Btr 有一些 Latching Protocol, 这个是个很大的话题
 
 1. (强烈推荐) http://mysql.taobao.org/monthly/2022/01/01/
-
 2. (强烈推荐) https://zhuanlan.zhihu.com/p/151397269
-
 3. MySQL · 引擎特性 · InnoDB index lock前世今生 http://mysql.taobao.org/monthly/2015/07/05/
 
-这个时候我不得不推荐一下 B-link-Tree 的解析了：https://zhuanlan.zhihu.com/p/165149237 
+这个时候我不得不推荐一下 B-link-Tree 的解析了：https://zhuanlan.zhihu.com/p/165149237
 
 ## 锁
 
@@ -142,19 +141,33 @@ MySQL 锁有很多坑，介绍最好的材料应该是何登成写的：
 1. https://github.com/hedengcheng/tech/blob/master/database/MySQL/MySQL%20%E5%8A%A0%E9%94%81%E5%A4%84%E7%90%86%E5%88%86%E6%9E%90.pdf
 2. https://github.com/wiminq/tech_note/blob/master/MySQL/%E4%BD%95%E7%99%BB%E6%88%90PPT/InnoDB%20Transaction%20Lock%20and%20MVCC%20%252854%E9%A1%B5%2529.pdf
 
+MySQL 博客给的文章也很不错：
+
+* MySQL · 引擎特性 · InnoDB 事务锁系统简介 http://mysql.taobao.org/monthly/2016/01/01/
+* MySQL · 性能优化 · InnoDB 事务 sharded 锁系统优化 http://mysql.taobao.org/monthly/2021/02/04/
+
 注意
 
 1. 一些 insertion 的意向锁 之类的。
-2. 不支持锁 Escalation (不同于 upgrade)，虽然有 intention lock，但是那个可以理解成表锁之类的
+2. 不支持锁 Escalation (不同于 upgrade)，虽然有 intention lock，但是那个可以理解成表锁之类的。但 InnoDB 支持锁表更新 `(lock_rec_inherit_to_gap_if_gap_lock)`
 3. 实现类似 wound-wait 的 2pl，lock 和 page 挂钩
+4. InnoDB 锁的内存结构（虽然它就是仅内存的）：全局管理，记录锁和 index/page 有关联，会针对 page 有一个 bitmap。
 
 这里读还区分了 consistent nonlocking read 和 locking read，其实还有个奇怪的 semi-consistent read
 
 还有个 auto_increment: https://dev.mysql.com/doc/refman/8.0/en/innodb-auto-increment-handling.html
 
-关于锁，还有一些死锁检测的内容：http://mysql.taobao.org/monthly/2021/05/02/
+关于锁，还有一些死锁检测的内容：
+
+* MySQL · 引擎特性 · 死锁检测 http://mysql.taobao.org/monthly/2021/05/02/
 
 隔离级别和锁还是看何登成的材料吧。
+
+### CATS / VATS
+
+InnoDB 里面的锁调度策略，有一些相关论文支持，大概意思是先调度有更多 trxn 等待的 trxn。
+
+* (强烈推荐) MySQL 8 事务锁调度VATS简介 https://zhuanlan.zhihu.com/p/412672250
 
 ## 事务子系统
 
@@ -187,7 +200,7 @@ Redo/Undo 强烈推荐 Catkang 的 notes:
 1. \<redo、undo、buffer pool、binlog，谁先谁后， 有点儿乱\>
 2. https://zhuanlan.zhihu.com/p/372300181
 
-### XA 
+### XA
 
 XA 概念和锁强相关，本身可以先看看上面 Binlog 有关的。这里推荐 PolarDB-X 关于 XA 的文章，介绍了 XA 及其优化。
 
@@ -201,6 +214,7 @@ XA 概念和锁强相关，本身可以先看看上面 Binlog 有关的。这里
 ## Change Buffer/Insert Buffer
 
 链接：
+
 1. http://mysql.taobao.org/monthly/2015/07/01/
 2. https://dev.mysql.com/doc/refman/8.0/en/innodb-change-buffer.html
 3. 官方博客：https://dev.mysql.com/blog-archive/the-innodb-change-buffer/
