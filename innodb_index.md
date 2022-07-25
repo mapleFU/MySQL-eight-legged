@@ -189,6 +189,8 @@ Redo/Undo 强烈推荐 Catkang 的 notes:
 4. MVCC 怎么和事务/索引/Undo Log 联动的
 5. UNDO LOG 的 GC，和事务信息系统
 
+### binlog
+
 关于 Binlog, 这玩意还挺重要的，这里有：
 
 1. Binlog 本身内容
@@ -198,13 +200,31 @@ Redo/Undo 强烈推荐 Catkang 的 notes:
 推荐的材料是：
 
 1. \<redo、undo、buffer pool、binlog，谁先谁后， 有点儿乱\>
-2. https://zhuanlan.zhihu.com/p/372300181
+2. 无处不在的 MySQL XA 事务: https://zhuanlan.zhihu.com/p/372300181
 
 ### XA
 
 XA 概念和锁强相关，本身可以先看看上面 Binlog 有关的。这里推荐 PolarDB-X 关于 XA 的文章，介绍了 XA 及其优化。
 
 * https://zhuanlan.zhihu.com/p/355413022
+
+### Recover
+
+Recover 本身涉及 undo/redo，事务的状态也要由 XA 来决定。
+
+在 InnoDB 的层面, commit 相当于在 undo data 上标记 Undo Segment Header 中的State会被从TRX_UNDO_ACTIVE改成TRX_UNDO_TO_FREE，TRX_UNDO_TO_PURGE或TRX_UNDO_CACHED, 然后写 mtr 的 redo log。同时，如果开启了 XA，可能要根据 XA / binlog 来恢复。这里还有一些 checkpoint 相关的内容，来避免 Redo 过长，加速恢复。相关博客如下：
+
+1. MySQL · 引擎特性 · InnoDB崩溃恢复: http://mysql.taobao.org/monthly/2017/07/01/
+2. MySQL · 引擎特性 · InnoDB 崩溃恢复过程: http://mysql.taobao.org/monthly/2015/06/01/
+
+上面两个是 undo/redo 层面的，如果事务状态是 PREPARE，而且开启了 XA，需要考虑：
+
+1. MySQL · 源码分析 · binlog crash recovery: http://mysql.taobao.org/monthly/2018/07/05/
+2. mysql源码学习笔记：基于binlog的recovery机制 https://blog.csdn.net/slwang001/article/details/77343893
+
+下面有一篇比较新的优化趋势优化的文章，即 binlog in redo:
+
+1. AliSQL · 内核特性 · Binlog In Redo: http://mysql.taobao.org/monthly/2020/06/01/
 
 ## 备份
 
