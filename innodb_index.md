@@ -13,8 +13,8 @@
 链接：
 
 1. **(强烈推荐)** InnoDB Buffer Pool: http://mysql.taobao.org/monthly/2017/05/01/
-2. BufferPool 浅析: http://mysql.taobao.org/monthly/2020/02/02/
-3. InnoDB Buffer Pool 特性漫谈：http://mysql.taobao.org/monthly/2015/02/01/
+2. InnoDB BufferPool 浅析: http://mysql.taobao.org/monthly/2020/02/02/
+3. InnoDB Buffer Pool flush 特性漫谈：http://mysql.taobao.org/monthly/2015/02/01/  && InnoDB 的自适应刷脏：https://leviathan.vip/2020/05/19/mysql-understand-adaptive-flushing/
 
 一些细节:
 
@@ -43,6 +43,18 @@ NVMe 最新协议似乎有原子写有关的部分。主线程有一些行为可
 基本上是为了让分配的物理空间连续/不连续导致的
 
 Page 存储感觉做的非常细，相对别的存储引擎，对 update 之类的更新操作做了很深入的考虑，能感受到引擎的高效和权衡。
+
+### IO 特性: Extend 层次上的预读
+
+Extend 可能会：
+
+* 如果线性扫描 Extends，可能会预读后面的 Extend
+* Extend 内 Page 访问满足一定条件，会加载起这个 Extend 内的数据
+
+具体可以参考：
+
+* 线性预读：https://bbs.huaweicloud.com/blogs/107748
+*  MySQL · 答疑解惑 · InnoDB 预读 VS Oracle 多块读 http://mysql.taobao.org/monthly/2015/05/04/
 
 ## 分区
 
@@ -85,6 +97,12 @@ Split 大概逻辑在 `btr_page_split_and_insert`, 下面两篇文章链路介�
 下降的实现在 `btr_cur_search_to_nth_level`，插入之类的都会走这里。
 
 1. MySQL · 源码分析 · btr_cur_search_to_nth_level 函数分析: http://mysql.taobao.org/monthly/2021/07/02/
+
+#### 并行读
+
+MySQL 8.0 引入了并行读的框架。具体：http://mysql.taobao.org/monthly/2019/10/03/ && https://www.percona.com/blog/2019/01/23/mysql-8-0-14-a-road-to-parallel-query-execution-is-wide-open/
+
+* InnoDB 并行读取框架 https://leviathan.vip/2020/10/02/innodb-parallel-read-of-index/
 
 ### DDL
 
