@@ -104,23 +104,10 @@ MySQL 8.0 引入了并行读的框架。具体：http://mysql.taobao.org/monthly
 
 * InnoDB 并行读取框架 https://leviathan.vip/2020/10/02/innodb-parallel-read-of-index/
 
-### DDL
-
-Online DDL 对业务来说还是很重要的。
-
-1. (一些演进) Online DDL 演进： http://mysql.taobao.org/monthly/2021/03/06/
-2. (这个功能好像是腾讯/阿里开发的，看到 Percona 还是啥写过感谢) 快速加列：http://mysql.taobao.org/monthly/2020/03/01/
-
-感觉没找到很好的材料，需要区分 online or not, in-place or not, rebuild or not. 然后 gh-ost/pt-online-schema-change 之类的又有一些 DDL:
-
-1. http://mysql.taobao.org/monthly/2018/05/02/
-
-反正这块还挺复杂的，突然发现 TiDB 那套模型加索引还挺方便的 orz。
-
 ## 统计信息
 
-1. http://mysql.taobao.org/monthly/2020/12/05/
-2. http://mysql.taobao.org/monthly/2020/03/08/
+1. (强烈推荐) MySQL · 内核特性 · 统计信息的现状和发展 http://mysql.taobao.org/monthly/2020/12/05/
+2. MySQL · 内核分析 · InnoDB 的统计信息 http://mysql.taobao.org/monthly/2020/03/08/
 
 ## Record
 
@@ -186,6 +173,7 @@ MySQL 博客给的文章也很不错：
 InnoDB 里面的锁调度策略，有一些相关论文支持，大概意思是先调度有更多 trxn 等待的 trxn。
 
 * (强烈推荐) MySQL 8 事务锁调度VATS简介 https://zhuanlan.zhihu.com/p/412672250
+* MySQL · 源码分析 · 事务锁调度分析 http://mysql.taobao.org/monthly/2021/09/01/
 
 ## 事务子系统
 
@@ -206,6 +194,10 @@ Redo/Undo 强烈推荐 Catkang 的 notes:
 3. **Redo Log 的 wait-free 写模型**
 4. MVCC 怎么和事务/索引/Undo Log 联动的
 5. UNDO LOG 的 GC，和事务信息系统
+
+一些细节的代码可以参考：
+
+1. MySQL · 源码分析 · LinkBuf设计与实现 http://mysql.taobao.org/monthly/2019/05/08/
 
 ### binlog
 
@@ -244,10 +236,6 @@ Recover 本身涉及 undo/redo，事务的状态也要由 XA 来决定。
 
 1. AliSQL · 内核特性 · Binlog In Redo: http://mysql.taobao.org/monthly/2020/06/01/
 
-## 备份
-
-1. http://mysql.taobao.org/monthly/2016/03/07/
-2. http://mysql.taobao.org/monthly/2015/08/09/ 和 http://mysql.taobao.org/monthly/2015/09/07/
 
 ## Change Buffer/Insert Buffer
 
