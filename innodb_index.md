@@ -115,6 +115,10 @@ MySQL 8.0 引入了并行读的框架。具体：http://mysql.taobao.org/monthly
 
 （俺实现过一遍 MySQL Compact，性能还真挺好的）
 
+### BLOB
+
+* MySQL · 源码分析 · innodb-BLOB演进与实现 http://mysql.taobao.org/monthly/2022/09/01/
+
 ### 编码
 
 Varchar 之类的处理。
@@ -198,6 +202,7 @@ Redo/Undo 强烈推荐 Catkang 的 notes:
 一些细节的代码可以参考：
 
 1. MySQL · 源码分析 · LinkBuf设计与实现 http://mysql.taobao.org/monthly/2019/05/08/
+2. 源码分析 · InnoDB Redo Log 重构 http://mysql.taobao.org/monthly/2022/09/03/
 
 ### binlog
 
