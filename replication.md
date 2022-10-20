@@ -24,6 +24,25 @@ Online DDL 对业务来说还是很重要的。
 
 反正这块还挺复杂的，突然发现 TiDB 那套模型加索引还挺方便的 orz。
 
+#### Atomic DDL
+
+TiDB/F1 的 online ddl 参考了论文 `<Online, Asynchronous Schema Change in F1>`，在分布式机器中做了一个状态机后推的兼容性。然后 DDL 靠事务进行。`gh-ost` 会考虑相关的 DDL 的兼容和追 lag 什么的，这里 MySQL 8.0 和 InnoDB 协同，来做了一些 Atomic DDL 相关的内容：
+
+1. 官方博客:
+
+   1. Data Directory 的 motivation： https://dev.mysql.com/blog-archive/mysql-8-0-data-dictionary-background-and-motivation/
+   2. Data Directory 的设计：https://dev.mysql.com/blog-archive/mysql-8-0-data-dictionary-architecture-and-design/
+   3. Atomic DDL: https://dev.mysql.com/blog-archive/atomic-ddl-in-mysql-8-0/
+
+2. 行为：
+
+   1. 深入解读MySQL8.0 新特性 ：Crash Safe DDL： https://developer.aliyun.com/article/692258
+   2. MySQL · 源码分析 · DDL log与原子DDL的实现 http://mysql.taobao.org/monthly/2021/07/05/
+3. MySQL · 源码分析 · 8.0 · DDL的那些事 http://mysql.taobao.org/monthly/2020/05/05/
+4. MySQL · 源码分析 · 原子DDL的实现过程 http://mysql.taobao.org/monthly/2018/03/02/
+5. MySQL · 源码分析 · 8.0 原子DDL的实现过程续 http://mysql.taobao.org/monthly/2018/07/02/
+
+
 ## Cloud DB
 
 * (强烈推荐) 网易数帆MySQL云原生数据库实现 - 温正湖的文章 - 知乎
