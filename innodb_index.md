@@ -107,7 +107,10 @@ MySQL 8.0 引入了并行读的框架。具体：http://mysql.taobao.org/monthly
 ## 统计信息
 
 1. (强烈推荐) MySQL · 内核特性 · 统计信息的现状和发展 http://mysql.taobao.org/monthly/2020/12/05/
+
 2. MySQL · 内核分析 · InnoDB 的统计信息 http://mysql.taobao.org/monthly/2020/03/08/
+
+3. MySQL 深潜 - 统计信息采集 http://mysql.taobao.org/monthly/2022/10/05/ （这篇文章比较详细描述了 btr 中采样 ndv 等 item 的实现，比之前细不少）
 
 ## Record
 
@@ -203,6 +206,20 @@ Redo/Undo 强烈推荐 Catkang 的 notes:
 
 1. MySQL · 源码分析 · LinkBuf设计与实现 http://mysql.taobao.org/monthly/2019/05/08/
 2. 源码分析 · InnoDB Redo Log 重构 http://mysql.taobao.org/monthly/2022/09/03/
+
+#### Undo 
+
+Undo 可以关注 undo tablespace 的创建和管理
+
+1. MySQL 5.6 引入，回收 undo 的空间：https://dev.mysql.com/blog-archive/online-truncate-of-innodb-undo-tablespaces/
+2. MySQL 8.0 之后，对上述功能增强：
+   1. https://dev.mysql.com/blog-archive/mysql-8-0-2-more-flexible-undo-tablespace-management/
+   2. https://dev.mysql.com/blog-archive/new-in-mysql-8-0-14-create-undo-tablespace/
+
+阿里数据库团队有人写过相关的材料，看了下，这哥们写了非常多 Undo 的，比较靠谱，可以翻他的 posts:
+
+* InnoDB之UNDO LOG介绍 - 就是酱的文章 - 知乎 https://zhuanlan.zhihu.com/p/453169285
+* Undo TableSpace 的发展: http://mysql.taobao.org/monthly/2020/10/02/
 
 ### binlog
 
