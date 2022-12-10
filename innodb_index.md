@@ -185,9 +185,14 @@ InnoDB 里面的锁调度策略，有一些相关论文支持，大概意思是�
 ## 事务子系统
 
 * (强烈推荐) https://zhuanlan.zhihu.com/p/365415843 InnoDB事务 - 从原理到实现（zty 老板写的）
+
 * (强烈推荐) MairaDB Slide: https://mariadb.org/wp-content/uploads/2018/02/Deep-Dive_-InnoDB-Transactions-and-Write-Paths.pdf
+
 * MySQL · 引擎特性 · InnoDB 事务子系统介绍: http://mysql.taobao.org/monthly/2015/12/01/
+
 * MySQL · 引擎特性 · InnoDB mini transation: http://mysql.taobao.org/monthly/2017/10/03/
+
+  * MySQL · 源码详解 · mini transaction详解 http://mysql.taobao.org/monthly/2021/09/04/ (这篇似乎是上一篇的续篇，介绍的更详细一些)
 
 Redo/Undo 强烈推荐 Catkang 的 notes:
 
@@ -198,14 +203,20 @@ Redo/Undo 强烈推荐 Catkang 的 notes:
 
 1. undo log 的实现 pattern
 2. Physical/Logical 的物理逻辑日志，和 column level 的操作
-3. **Redo Log 的 wait-free 写模型**
+3. **Redo Log 的 lock-free 写模型**
 4. MVCC 怎么和事务/索引/Undo Log 联动的
 5. UNDO LOG 的 GC，和事务信息系统
 
 一些细节的代码可以参考：
 
 1. MySQL · 源码分析 · LinkBuf设计与实现 http://mysql.taobao.org/monthly/2019/05/08/
+	2. MySQL Link buf - 阿里云数据库开源的文章 - 知乎
+https://zhuanlan.zhihu.com/p/408569476
 2. 源码分析 · InnoDB Redo Log 重构 http://mysql.taobao.org/monthly/2022/09/03/
+3. (强烈推荐) (推荐看完 CatKang 那篇回来看) InnoDB：redo log（1） - Skywalker的文章 - 知乎 https://zhuanlan.zhihu.com/p/386710765 
+4. (强烈推荐 + 官方博客) https://dev.mysql.com/blog-archive/mysql-8-0-new-lock-free-scalable-wal-design/ 
+   * 这一篇是它的翻译 http://mysql.taobao.org/monthly/2018/06/01/
+5. (5.7 版本对比实现，可以对比前面几篇读) InnoDB——LogBuffer与事务提交过程 http://liuyangming.tech/06-2019/LogBufferAndBufferPool.html
 
 #### Undo 
 
@@ -257,6 +268,10 @@ Recover 本身涉及 undo/redo，事务的状态也要由 XA 来决定。
 下面有一篇比较新的优化趋势优化的文章，即 binlog in redo:
 
 1. AliSQL · 内核特性 · Binlog In Redo: http://mysql.taobao.org/monthly/2020/06/01/
+
+一些细节：
+
+* 【日常技术批判】 InnoDB 确定 checkpoint-lsn 的一处细节 https://github.com/rsy56640/triviality/tree/master/content/innodb-ckpt-lsn
 
 
 ## Change Buffer/Insert Buffer
