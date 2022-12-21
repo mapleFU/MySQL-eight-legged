@@ -33,7 +33,6 @@ TiDB/F1 的 online ddl 参考了论文 `<Online, Asynchronous Schema Change in F
    1. Data Directory 的 motivation： https://dev.mysql.com/blog-archive/mysql-8-0-data-dictionary-background-and-motivation/
    2. Data Directory 的设计：https://dev.mysql.com/blog-archive/mysql-8-0-data-dictionary-architecture-and-design/
    3. Atomic DDL: https://dev.mysql.com/blog-archive/atomic-ddl-in-mysql-8-0/
-
 2. 行为：
 
    1. 深入解读MySQL8.0 新特性 ：Crash Safe DDL： https://developer.aliyun.com/article/692258
@@ -41,6 +40,11 @@ TiDB/F1 的 online ddl 参考了论文 `<Online, Asynchronous Schema Change in F
 3. MySQL · 源码分析 · 8.0 · DDL的那些事 http://mysql.taobao.org/monthly/2020/05/05/
 4. MySQL · 源码分析 · 原子DDL的实现过程 http://mysql.taobao.org/monthly/2018/03/02/
 5. MySQL · 源码分析 · 8.0 原子DDL的实现过程续 http://mysql.taobao.org/monthly/2018/07/02/
+
+## HTAP Engine
+
+* MySQL · HTAP · 分析型执行引擎 http://mysql.taobao.org/monthly/2021/04/04/
+  * 知名的 MySQL Heatwave，公开材料不是很清楚，Oracle 的新捞钱工具。和 InnoDB / MySQL 原生那套 XA 应该有联系，甚至上了硬件优化。
 
 
 ## Cloud DB
