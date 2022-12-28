@@ -210,13 +210,16 @@ Redo/Undo 强烈推荐 Catkang 的 notes:
 一些细节的代码可以参考：
 
 1. MySQL · 源码分析 · LinkBuf设计与实现 http://mysql.taobao.org/monthly/2019/05/08/
-	2. MySQL Link buf - 阿里云数据库开源的文章 - 知乎
-https://zhuanlan.zhihu.com/p/408569476
+	2. MySQL Link buf - 阿里云数据库开源的文章 - 知乎https://zhuanlan.zhihu.com/p/408569476
 2. 源码分析 · InnoDB Redo Log 重构 http://mysql.taobao.org/monthly/2022/09/03/
 3. (强烈推荐) (推荐看完 CatKang 那篇回来看) InnoDB：redo log（1） - Skywalker的文章 - 知乎 https://zhuanlan.zhihu.com/p/386710765 
 4. (强烈推荐 + 官方博客) https://dev.mysql.com/blog-archive/mysql-8-0-new-lock-free-scalable-wal-design/ 
    * 这一篇是它的翻译 http://mysql.taobao.org/monthly/2018/06/01/
 5. (5.7 版本对比实现，可以对比前面几篇读) InnoDB——LogBuffer与事务提交过程 http://liuyangming.tech/06-2019/LogBufferAndBufferPool.html
+6. InnoDB MVCC 相关实现 - 阿里云数据库开源的文章 - 知乎
+https://zhuanlan.zhihu.com/p/414088892 (关注 read view, 事务和 Cluster Index / 非 Cluster Index 的锁)
+	1. InnoDB——Btree与rwlock的互动 http://liuyangming.tech/07-2019/InnoDB-Lock.html
+	2. MySQL · 引擎特性 · InnoDB MVCC 相关实现 http://mysql.taobao.org/monthly/2018/11/04/
 
 #### Undo 
 
