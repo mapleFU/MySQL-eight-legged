@@ -153,6 +153,14 @@ MySQL 锁有很多坑，介绍最好的材料应该是何登成写的：
 1. https://github.com/hedengcheng/tech/blob/master/database/MySQL/MySQL%20%E5%8A%A0%E9%94%81%E5%A4%84%E7%90%86%E5%88%86%E6%9E%90.pdf
 2. https://github.com/wiminq/tech_note/blob/master/MySQL/%E4%BD%95%E7%99%BB%E6%88%90PPT/InnoDB%20Transaction%20Lock%20and%20MVCC%20%252854%E9%A1%B5%2529.pdf
 
+官方博客在 20 年给了几篇博客：
+
+* InnoDB Data Locking - Part 1 "Introduction" https://dev.mysql.com/blog-archive/innodb-data-locking-part-1-introduction/
+* InnoDB Data Locking - Part 2 "Locks" https://dev.mysql.com/blog-archive/innodb-data-locking-part-2-locks/
+* InnoDB Data Locking – Part 3 "Deadlocks" https://dev.mysql.com/blog-archive/innodb-data-locking-part-3-deadlocks/
+* InnoDB Data Locking - Part 4 "Scheduling" https://dev.mysql.com/blog-archive/innodb-data-locking-part-4-scheduling/
+* InnoDB Data Locking - Part 5 "Concurrent queues" https://dev.mysql.com/blog-archive/innodb-data-locking-part-5-concurrent-queues/
+
 MySQL 博客给的文章也很不错：
 
 * MySQL · 引擎特性 · InnoDB 事务锁系统简介 http://mysql.taobao.org/monthly/2016/01/01/
@@ -212,14 +220,18 @@ Redo/Undo 强烈推荐 Catkang 的 notes:
 1. MySQL · 源码分析 · LinkBuf设计与实现 http://mysql.taobao.org/monthly/2019/05/08/
 	2. MySQL Link buf - 阿里云数据库开源的文章 - 知乎https://zhuanlan.zhihu.com/p/408569476
 2. 源码分析 · InnoDB Redo Log 重构 http://mysql.taobao.org/monthly/2022/09/03/
-3. (强烈推荐) (推荐看完 CatKang 那篇回来看) InnoDB：redo log（1） - Skywalker的文章 - 知乎 https://zhuanlan.zhihu.com/p/386710765 
-4. (强烈推荐 + 官方博客) https://dev.mysql.com/blog-archive/mysql-8-0-new-lock-free-scalable-wal-design/ 
+   1. 这篇的官方文档在：https://blogs.oracle.com/mysql/post/dynamic-innodb-redo-log-in-mysql-80
+3. InnoDB Redo 日志归档(8.0.17 提出)：
+   1. 阿里云的使用 https://developer.aliyun.com/article/807030
+   2. 官方博客：https://dev.mysql.com/blog-archive/mysql-innodb-redo-log-archiving/
+4. (强烈推荐) (推荐看完 CatKang 那篇回来看) InnoDB：redo log（1） - Skywalker的文章 - 知乎 https://zhuanlan.zhihu.com/p/386710765 
+5. (强烈推荐 + 官方博客) https://dev.mysql.com/blog-archive/mysql-8-0-new-lock-free-scalable-wal-design/ 
    * 这一篇是它的翻译 http://mysql.taobao.org/monthly/2018/06/01/
-5. (5.7 版本对比实现，可以对比前面几篇读) InnoDB——LogBuffer与事务提交过程 http://liuyangming.tech/06-2019/LogBufferAndBufferPool.html
-6. InnoDB MVCC 相关实现 - 阿里云数据库开源的文章 - 知乎
-https://zhuanlan.zhihu.com/p/414088892 (关注 read view, 事务和 Cluster Index / 非 Cluster Index 的锁)
-	1. InnoDB——Btree与rwlock的互动 http://liuyangming.tech/07-2019/InnoDB-Lock.html
-	2. MySQL · 引擎特性 · InnoDB MVCC 相关实现 http://mysql.taobao.org/monthly/2018/11/04/
+6. (5.7 版本对比实现，可以对比前面几篇读) InnoDB——LogBuffer与事务提交过程 http://liuyangming.tech/06-2019/LogBufferAndBufferPool.html
+7. InnoDB MVCC 相关实现 - 阿里云数据库开源的文章 - 知乎
+  https://zhuanlan.zhihu.com/p/414088892 (关注 read view, 事务和 Cluster Index / 非 Cluster Index 的锁)
+  1. InnoDB——Btree与rwlock的互动 http://liuyangming.tech/07-2019/InnoDB-Lock.html
+  2. MySQL · 引擎特性 · InnoDB MVCC 相关实现 http://mysql.taobao.org/monthly/2018/11/04/
 
 #### Undo 
 
