@@ -7,3 +7,11 @@ hedengcheng 的 slide：https://github.com/hedengcheng/tech/blob/master/database
 (强烈推荐) MySQL源码：Range优化相关的数据结构: https://www.orczhou.com/index.php/2012/11/mysql-source-code-range-optimize-data-structure/#i 和 https://www.orczhou.com/index.php/2013/01/mysql-source-code-range-optimize-data-structure-again/
 
 Range (Min-Max Tree ) 结构分析：http://mysql.taobao.org/monthly/2021/06/03/
+
+## 一些入口
+
+* 引擎层入口(这里还涉及一些 XA 的逻辑)
+
+  * MySQL · 内核特性 · Attachable transaction http://mysql.taobao.org/monthly/2020/06/03/
+  * MySQL · 源码阅读 · 内部XA事务 http://mysql.taobao.org/monthly/2021/01/02/
+  * https://www.codeproject.com/Articles/1107279/Writing-a-MySQL-Storage-Engine-from-Scratch
