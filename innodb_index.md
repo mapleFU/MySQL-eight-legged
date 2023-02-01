@@ -229,7 +229,7 @@ Redo/Undo 强烈推荐 Catkang 的 notes:
    * 这一篇是它的翻译 http://mysql.taobao.org/monthly/2018/06/01/
 6. (5.7 版本对比实现，可以对比前面几篇读) InnoDB——LogBuffer与事务提交过程 http://liuyangming.tech/06-2019/LogBufferAndBufferPool.html
 7. InnoDB MVCC 相关实现 - 阿里云数据库开源的文章 - 知乎
-  https://zhuanlan.zhihu.com/p/414088892 (关注 read view, 事务和 Cluster Index / 非 Cluster Index 的锁)
+    https://zhuanlan.zhihu.com/p/414088892 (关注 read view, 事务和 Cluster Index / 非 Cluster Index 的锁)
   1. InnoDB——Btree与rwlock的互动 http://liuyangming.tech/07-2019/InnoDB-Lock.html
   2. MySQL · 引擎特性 · InnoDB MVCC 相关实现 http://mysql.taobao.org/monthly/2018/11/04/
 
@@ -258,7 +258,10 @@ Undo 可以关注 undo tablespace 的创建和管理
 推荐的材料是：
 
 1. \<redo、undo、buffer pool、binlog，谁先谁后， 有点儿乱\>
+
 2. 无处不在的 MySQL XA 事务: https://zhuanlan.zhihu.com/p/372300181
+
+3. MySQL Binlog 源码入门 http://mysql.taobao.org/monthly/2023/01/04/
 
 ### XA
 
@@ -279,6 +282,7 @@ Recover 本身涉及 undo/redo，事务的状态也要由 XA 来决定。
 
 1. MySQL · 源码分析 · binlog crash recovery: http://mysql.taobao.org/monthly/2018/07/05/
 2. mysql源码学习笔记：基于binlog的recovery机制 https://blog.csdn.net/slwang001/article/details/77343893
+3. (一个很有趣的例子，介绍 XA Recover 的锁处理) [MySQL 分布式事务锁恢复机制探究](https://zhuanlan.zhihu.com/p/50762037)
 
 下面有一篇比较新的优化趋势优化的文章，即 binlog in redo:
 
