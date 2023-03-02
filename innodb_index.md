@@ -157,6 +157,7 @@ MySQL 锁有很多坑，介绍最好的材料应该是何登成写的：
 
 * InnoDB Data Locking - Part 1 "Introduction" https://dev.mysql.com/blog-archive/innodb-data-locking-part-1-introduction/
 * InnoDB Data Locking - Part 2 "Locks" https://dev.mysql.com/blog-archive/innodb-data-locking-part-2-locks/
+* InnoDB Data Locking - Part 2.5 "Locks" (Deeper dive) https://dev.mysql.com/blog-archive/innodb-data-locking-part-2-5-locks-deeper-dive/
 * InnoDB Data Locking – Part 3 "Deadlocks" https://dev.mysql.com/blog-archive/innodb-data-locking-part-3-deadlocks/
 * InnoDB Data Locking - Part 4 "Scheduling" https://dev.mysql.com/blog-archive/innodb-data-locking-part-4-scheduling/
 * InnoDB Data Locking - Part 5 "Concurrent queues" https://dev.mysql.com/blog-archive/innodb-data-locking-part-5-concurrent-queues/
@@ -245,7 +246,12 @@ Undo 可以关注 undo tablespace 的创建和管理
 阿里数据库团队有人写过相关的材料，看了下，这哥们写了非常多 Undo 的，比较靠谱，可以翻他的 posts:
 
 * InnoDB之UNDO LOG介绍 - 就是酱的文章 - 知乎 https://zhuanlan.zhihu.com/p/453169285
+
 * Undo TableSpace 的发展: http://mysql.taobao.org/monthly/2020/10/02/
+
+还有一些别的评论：
+
+* Long-lived Transactions 产生的影响 http://mysql.taobao.org/monthly/2023/02/03/  (以工程师的视角介绍了一下，内容可以参考 SAP HANA 和 HyPer 的 Interval GC)
 
 ### binlog
 

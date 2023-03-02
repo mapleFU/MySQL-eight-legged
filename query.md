@@ -15,3 +15,7 @@ Range (Min-Max Tree ) 结构分析：http://mysql.taobao.org/monthly/2021/06/03/
   * MySQL · 内核特性 · Attachable transaction http://mysql.taobao.org/monthly/2020/06/03/
   * MySQL · 源码阅读 · 内部XA事务 http://mysql.taobao.org/monthly/2021/01/02/
   * https://www.codeproject.com/Articles/1107279/Writing-a-MySQL-Storage-Engine-from-Scratch
+
+## 特定查询的优化
+
+* Count(*) http://mysql.taobao.org/monthly/2023/02/01/ 在 5.6 和 8.x 版本之后，会下推到存储引擎，新版本的代码会扫 Cluster Index，然后尽量扫的数据不进 buffer-pool
