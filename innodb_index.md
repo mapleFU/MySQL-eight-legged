@@ -39,6 +39,7 @@ NVMe 最新协议似乎有原子写有关的部分。主线程有一些行为可
 1. (强烈推荐) 官方博客：https://dev.mysql.com/blog-archive/innodb-tablespace-space-management/ ，有几张绝世好图
 2. (强烈推荐) 《MySQL是怎样运行的：从根儿上理解 MySQL》 chap8-9
 3. http://mysql.taobao.org/monthly/2019/10/01/
+4. (强烈推荐) https://dev.mysql.com/doc/refman/8.0/en/innodb-compression-internals.html InnoDB Table Compression 的内部逻辑，推荐和 Page Compression 部分联动看
 
 基本上是为了让分配的物理空间连续/不连续导致的
 
@@ -86,13 +87,19 @@ Extend 可能会：
 2. （比较简单）Merge 和 Split 的一些要点：https://www.percona.com/blog/2017/04/10/innodb-page-merging-and-page-splitting/
 3. https://stackoverflow.com/questions/48364549/how-does-the-leaf-node-split-in-the-physical-space-in-innodb
 4. 压缩页：http://mysql.taobao.org/monthly/2015/08/01/
+   1. 压缩的内容有一篇官方博客：https://dev.mysql.com/blog-archive/innodb-transparent-page-compression/
+   2. Percona 有一篇博客 MySQL: Compression, Indexes, and Two Smoking Barrels https://www.percona.com/blog/mysql-compression-indexes-and-two-smoking-barrels/
+   3. 数据库月报还提供了一个压缩相关的博客，提到了 Percona 的列存插件  MySQL · 引擎特性 · Column Compression浅析: http://mysql.taobao.org/monthly/2016/11/04/
 
 感觉很细的一点是，根据插入方向确定 split 的 pattern，和页内格式。我反正写不了这么复杂的东西。
 
 Split 大概逻辑在 `btr_page_split_and_insert`, 下面两篇文章链路介绍的比较好：
 
 1. InnoDB——Btree与MTR的牵扯: http://liuyangming.tech/05-2019/InnoDB-Mtr.html
+
 2. MySQL 8.0 redo log实现分析: https://zhuanlan.zhihu.com/p/440476383
+
+3. InnoDB B-tree 顺序插入优化及问题 https://zhuanlan.zhihu.com/p/398795379
 
 下降的实现在 `btr_cur_search_to_nth_level`，插入之类的都会走这里。
 
@@ -121,6 +128,21 @@ MySQL 8.0 引入了并行读的框架。具体：http://mysql.taobao.org/monthly
 ### BLOB
 
 * MySQL · 源码分析 · innodb-BLOB演进与实现 http://mysql.taobao.org/monthly/2022/09/01/
+
+### JSON
+
+1. MySQL5.7 的 JSON 实现 http://mysql.taobao.org/monthly/2016/01/03/
+2. 如何索引 JSON 字段 http://mysql.taobao.org/monthly/2017/12/09/
+
+### Decimal
+
+1. http://mysql.taobao.org/monthly/2021/03/02/
+
+### Multi-Values Index
+
+InnoDB 的索引，对同一个 Primary Key，建立多个二级索引。相当于从虚拟列（ JSON ) 中抽取对应的实现。
+
+* MySQL · 引擎特性 · Multi-Valued Indexes 简述 http://mysql.taobao.org/monthly/2019/09/04/ 
 
 ### 编码
 
