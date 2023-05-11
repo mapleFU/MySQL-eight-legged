@@ -13,8 +13,23 @@
 链接：
 
 1. **(强烈推荐)** InnoDB Buffer Pool: http://mysql.taobao.org/monthly/2017/05/01/
+
 2. InnoDB BufferPool 浅析: http://mysql.taobao.org/monthly/2020/02/02/
+
 3. InnoDB Buffer Pool flush 特性漫谈：http://mysql.taobao.org/monthly/2015/02/01/  && InnoDB 的自适应刷脏：https://leviathan.vip/2020/05/19/mysql-understand-adaptive-flushing/
+
+4. MySQL · 内核分析 · InnoDB Buffer Pool 并发控制 http://mysql.taobao.org/monthly/2020/05/06/
+	1. (内存足够的情况下) 会有多个 Buffer Pool Instance。用来拆小并发。8.0.13 之后 apply 了 Percona 提交上来的更改，将锁的并发粒度拆细了
+	2. page 上会有 `io_fix` (io 状态) 和 Pin 的状态，根据这些启发式的避免一些 Lock
+	3. Flush 的时候会上 SX Lock
+
+5. **(强烈推荐)** MySQL · 引擎特性 · PolarDB Innodb刷脏优化 http://mysql.taobao.org/monthly/2023/04/02/ 
+
+   1. 这部分内容可以联动 「MySQL InnoDB读写锁实现分析 - 阿里云数据库开源的文章 - 知乎 https://zhuanlan.zhihu.com/p/408637966 」 和 「InnoDB 表空间压缩」 + IO 子系统一起看
+   2. InnoDB 有 LRU 和 Flush List. LRU 是一个 3/8 切分的类似 2-LRU 的结构，Flush List 按照 modification 进行排序（见 InnoDB 8.0 的更新）
+   3. 会有拆的比较细的锁。
+   4. SSD 的 Page Flush 的 IO 可能比较快，所以这块相对来说开销不是很离谱。PolarDB 在的环境会做一轮 Shadow Flush（类似 CoW）来阻止对应的开销
+   5. InnoDB 在 Flush List 中的页面也会在 LRU List 中，在需要内存之类的时候，会有不同的策略来 Flush，同时，InnoDB 自己会有 Page Cleaner 线程去 Trigger 自适应的 Flushing，根据 Redo 产生数据、Dirty Page Ratio 之类的来 Flush，ckpt 之类提交的时候可能按照配置会需要 WAL Sync 到某个位点。这个时候都会 Trigger Flush。内存压力大的时候，可能会用户线程主动触发 Flush
 
 一些细节:
 
@@ -47,7 +62,7 @@ Page 存储感觉做的非常细，相对别的存储引擎，对 update 之类�
 
 ### IO 特性: Extend 层次上的预读
 
-Extend 可能会：
+Extend 可能会（使 workload 和配置而定）：
 
 * 如果线性扫描 Extends，可能会预读后面的 Extend
 * Extend 内 Page 访问满足一定条件，会加载起这个 Extend 内的数据
