@@ -245,6 +245,10 @@ Redo/Undo 强烈推荐 Catkang 的 notes:
 1. https://catkang.github.io/2020/02/27/mysql-redo.html
 2. https://catkang.github.io/2021/10/30/mysql-undo.html
 
+Undo 还有下面这篇：
+
+1. (强烈推荐) MySQL · 源码解析 · InnoDB中undo日志的组织及实现  http://mysql.taobao.org/monthly/2023/05/01/
+
 关注：
 
 1. undo log 的实现 pattern
