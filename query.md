@@ -19,3 +19,4 @@ Range (Min-Max Tree ) 结构分析：http://mysql.taobao.org/monthly/2021/06/03/
 ## 特定查询的优化
 
 * Count(*) http://mysql.taobao.org/monthly/2023/02/01/ 在 5.6 和 8.x 版本之后，会下推到存储引擎，新版本的代码会扫 Cluster Index，然后尽量扫的数据不进 buffer-pool
+* 子查询的执行: MySQL · 源码解析 · mysql 子查询执行方式介绍 http://mysql.taobao.org/monthly/2023/06/02/

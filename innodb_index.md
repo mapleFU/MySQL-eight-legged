@@ -204,6 +204,12 @@ MySQL 博客给的文章也很不错：
 * MySQL · 引擎特性 · InnoDB 事务锁系统简介 http://mysql.taobao.org/monthly/2016/01/01/
 * MySQL · 性能优化 · InnoDB 事务 sharded 锁系统优化 http://mysql.taobao.org/monthly/2021/02/04/
 
+关于上面的内容，数据库月报还写过一些 Case，可以看看对应的 case，帮助理解：
+
+* \#issue 68021 MySQL unique check 问题 - 陈宗志的文章 - 知乎 https://zhuanlan.zhihu.com/p/503880736
+
+* MySQL · 源码解析 · 并发Replace into导致死锁 http://mysql.taobao.org/monthly/2023/06/01/
+
 注意
 
 1. 一些 insertion 的意向锁 之类的。
